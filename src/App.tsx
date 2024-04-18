@@ -1,12 +1,23 @@
+import { useState } from 'react';
+import CardFlip from './CardFlip';
 import { BsArrowLeftSquare, BsArrowRightSquare } from 'react-icons/bs';
 
 function App() {
+  const [isFlipped, setIsFlipped] = useState(false);
+  const handleFlip = () => {
+    setIsFlipped(!isFlipped);
+  };
+
   return (
     <div className='w-screen h-screen p-10'>
       <div className='flex justify-end'>
+        {/* RESTART BUTTON */}
         <button className='bg-black rounded-full p-4'>Restart</button>
       </div>
+
       {/* <div className='flex justify-center'></div> */}
+
+      {/* PAGE TITLE */}
       <h1 className='text-4xl font-bold my-20 flex justify-center'>
         HellDivers 2 Trivia
       </h1>
@@ -14,14 +25,19 @@ function App() {
         Say hello to DEMOCRACY, and help spread FREEDOM across the galaxy by
         answering these trivia questions:
       </p>
+
+      {/* DECK CONTAINER */}
       <div className='flex justify-center p-8'>
         <div className='flex w-auto h-auto grid grid-cols-3 gap-11 content-center justify-self-center'>
           <button className='flex grid justify-center content-center'>
             <BsArrowLeftSquare className='w-10 h-10' />
           </button>
+
+          {/* DECK */}
           <div className='w-52 h-80 text-white bg-black flex grid justify-center content-center'>
-            Card
+            <CardFlip isFlipped={isFlipped} handleFlip={handleFlip} />
           </div>
+
           <button className='flex grid justify-center content-center'>
             <BsArrowRightSquare className='w-10 h-10' />
           </button>
@@ -29,7 +45,10 @@ function App() {
       </div>
       <div className='flex w-auto h-auto grid grid-cols-3 gap-11 content-center justify-self-center'>
         <div className='grid'></div>
-        <button className='flex grid justify-center border-solid border-2 rounded-lg'>
+        <button
+          className='flex grid justify-center border-solid border-2 rounded-lg'
+          onClick={handleFlip}
+        >
           Reveal
         </button>
         <div className='grid'></div>
