@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import CardFlip from './CardFlip';
+import { Deck } from './components/Deck';
 import { BsArrowLeftSquare, BsArrowRightSquare } from 'react-icons/bs';
 
 function App() {
@@ -18,10 +18,10 @@ function App() {
       {/* <div className='flex justify-center'></div> */}
 
       {/* PAGE TITLE */}
-      <h1 className='text-4xl font-bold my-20 flex justify-center'>
+      <h1 className='text-4xl font-bold my-11 flex justify-center'>
         HellDivers 2 Trivia
       </h1>
-      <p className='flex justify-center'>
+      <p className='max-w-96 mx-auto'>
         Say hello to DEMOCRACY, and help spread FREEDOM across the galaxy by
         answering these trivia questions:
       </p>
@@ -34,8 +34,8 @@ function App() {
           </button>
 
           {/* DECK */}
-          <div className='w-52 h-80 text-white bg-black flex grid justify-center content-center'>
-            <CardFlip isFlipped={isFlipped} handleFlip={handleFlip} />
+          <div className='w-48 h-72 text-white bg-[#171717] flex grid justify-center content-center rounded-lg rotate-6'>
+            <Deck isFlipped={isFlipped} handleFlip={handleFlip} />
           </div>
 
           <button className='flex grid justify-center content-center'>
@@ -55,7 +55,7 @@ function App() {
       </div>
       <div className='w-1/6 h-1/6 border-solid border-2'>
         <div className='flex justify-center py-8 text-lg font-bold'>
-          Score: 0/20
+          Score: 0 / 0
         </div>
       </div>
     </div>

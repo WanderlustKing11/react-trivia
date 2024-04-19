@@ -1,4 +1,5 @@
 import React from 'react';
+// import { cardData } from './data/cardData';
 import { motion, MotionStyle } from 'framer-motion';
 
 interface FramerFlipProps {
@@ -14,6 +15,7 @@ export const CardFlip: React.FC<FramerFlipProps> = ({ isFlipped }) => {
     transformStyle: 'preserve-3d', // Needed for 3D transformations
     transition: 'transform 0.8s',
     transformOrigin: 'center', // Explicitly setting the origin for transformation
+    rotate: '-6deg',
   };
 
   const frontStyle: MotionStyle = {
@@ -58,14 +60,14 @@ export const CardFlip: React.FC<FramerFlipProps> = ({ isFlipped }) => {
         transition={{ duration: 0.8 }}
         style={frontStyle}
       >
-        Front of the card
+        Front of Card
       </motion.div>
       <motion.div
         animate={{ rotateY: isFlipped ? 0 : 180 }}
         transition={{ duration: 0.8 }}
         style={backStyle}
       >
-        Back of the card
+        Back of Card
       </motion.div>
     </motion.div>
   );
