@@ -1,21 +1,29 @@
 import React from 'react';
-// import { cardData } from './data/cardData';
 import { motion, MotionStyle } from 'framer-motion';
 
 interface FramerFlipProps {
   handleFlip: () => void;
+  // className?: string;
+  question: string;
+  answer: string;
   isFlipped: boolean;
 }
 
-export const CardFlip: React.FC<FramerFlipProps> = ({ isFlipped }) => {
+export const CardFlip: React.FC<FramerFlipProps & { className?: string }> = ({
+  isFlipped,
+  className,
+  question,
+  answer,
+}) => {
   const cardStyle: MotionStyle = {
     width: '200px',
     height: '300px',
-    position: 'relative', // Ensures proper stacking
     transformStyle: 'preserve-3d', // Needed for 3D transformations
     transition: 'transform 0.8s',
     transformOrigin: 'center', // Explicitly setting the origin for transformation
     rotate: '-6deg',
+    padding: '5px',
+    textAlign: 'center',
   };
 
   const frontStyle: MotionStyle = {
@@ -40,18 +48,16 @@ export const CardFlip: React.FC<FramerFlipProps> = ({ isFlipped }) => {
     backfaceVisibility: 'hidden' as 'hidden' | 'visible',
     rotateY: 180,
     position: 'absolute', // Absolute position to align with the front face
-    top: 0, // Align top
-    left: 0, // Align left
+    top: 0,
+    left: 0,
   };
 
   return (
     <motion.div
+      className={className}
       style={{
-        perspective: '1000px',
-        width: '200px',
-        height: '300px',
-        position: 'relative',
-        cursor: 'pointer',
+        perspective: '1000px', // Adds visual depth for 3D animation
+        position: 'absolute',
         transformOrigin: 'center bottom', // Possible styling bug
       }}
     >
@@ -60,14 +66,14 @@ export const CardFlip: React.FC<FramerFlipProps> = ({ isFlipped }) => {
         transition={{ duration: 0.8 }}
         style={frontStyle}
       >
-        Front of Card
+        {question}
       </motion.div>
       <motion.div
         animate={{ rotateY: isFlipped ? 0 : 180 }}
         transition={{ duration: 0.8 }}
         style={backStyle}
       >
-        Back of Card
+        {answer}
       </motion.div>
     </motion.div>
   );
