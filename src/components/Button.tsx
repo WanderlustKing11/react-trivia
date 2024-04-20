@@ -1,10 +1,11 @@
 interface ButtonProps {
   onClick: () => void;
-  label: string;
+  children: React.ReactNode;
+  className: string;
 }
 
-const Button: React.FC<ButtonProps> = ({ onClick, label }) => (
-  <button onClick={onClick}>{label}</button>
+const Button: React.FC<ButtonProps> = ({ onClick, children }) => (
+  <button onClick={onClick}>{children}</button>
 );
 
 export default Button;

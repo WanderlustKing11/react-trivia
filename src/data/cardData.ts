@@ -6,6 +6,12 @@ interface CardDataProps {
 
 export const cardData: CardDataProps[] = [
   {
+    id: 0,
+    question: "To Start Game, Click Reveal",
+    // question: 'Start Game',
+    answer: "Answers will be on back of Cards. Click the right arrow -->",
+  },
+  {
     id: 1,
     question: "What would a good Helldiver do in the unthinkable event that they fail a mission?",
     answer: "Return, refit, and redeploy to purge the stain of this failure with the peroxide of victory.",

@@ -2,18 +2,23 @@ import React from 'react';
 import { motion, MotionStyle } from 'framer-motion';
 
 interface FramerFlipProps {
-  handleFlip: () => void;
-  // className?: string;
+  id: number;
+  handleFlip: (id: number) => void;
   question: string;
   answer: string;
   isFlipped: boolean;
 }
 
 export const CardFlip: React.FC<FramerFlipProps> = ({
+  id,
   isFlipped,
   question,
   answer,
 }) => {
+  console.log('CardFlip isFlipped:', isFlipped); // Should log true/false
+
+  const zIndex = 50 - id;
+
   const cardStyle: MotionStyle = {
     width: '200px',
     height: '300px',
@@ -21,7 +26,7 @@ export const CardFlip: React.FC<FramerFlipProps> = ({
     transition: 'transform 0.8s',
     transformOrigin: 'center', // Explicitly setting the origin for transformation
     rotate: '-6deg',
-    padding: '5px',
+    padding: '15px',
     textAlign: 'center',
   };
 
@@ -57,6 +62,7 @@ export const CardFlip: React.FC<FramerFlipProps> = ({
         perspective: '1000px', // Adds visual depth for 3D animation
         position: 'absolute',
         transformOrigin: 'center bottom', // Possible styling bug
+        zIndex,
       }}
     >
       <motion.div
