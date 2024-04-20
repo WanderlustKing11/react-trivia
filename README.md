@@ -32,3 +32,11 @@ If you're a fan of the game Helldivers 2, test your knowledge and see if you're 
 - Score tracking system
 - Possible multiple choice answers
 - Breadcrumbs to keep track of the player's progress
+
+##### Lessons Learned
+
+This was a very educational project for me. I tried my best to keep it simple, and fundamentally work efficiently without too many gimics. I also wanted the project to integrate well with 3rd party libraries without becoming too convoluted. Here are some of the lessons I learned along the way, as well as some of the pain points:
+
+- TypeScript for the save. There were numerous times that I realized I would have been searching high and low for bugs, but TypeScript saved me so much time finding exactly what I had forgotten or misspelled.
+- useState and all its glory. A very usefull hook that really is a great way to manage state and adds so much functionality. I had to figure out a few times how to reapply it to my buttons, especially when I needed to keep track of more than one state. That maybe took up the mmost amount of my time in this entire project.
+- Learning to pass props down multiple nested components made me go cross-eyed a little bit. I'm sure other people have an easier time with it than I did, but this was something I needed to sit down and sketch out on paper sometimes. That, and its being intertwined with TS was sometimes a bit of a headache, but I think I definitely got a better grasp on the use of passing props in React, as well as the use of interfaces.

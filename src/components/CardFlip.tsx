@@ -9,9 +9,8 @@ interface FramerFlipProps {
   isFlipped: boolean;
 }
 
-export const CardFlip: React.FC<FramerFlipProps & { className?: string }> = ({
+export const CardFlip: React.FC<FramerFlipProps> = ({
   isFlipped,
-  className,
   question,
   answer,
 }) => {
@@ -54,7 +53,6 @@ export const CardFlip: React.FC<FramerFlipProps & { className?: string }> = ({
 
   return (
     <motion.div
-      className={className}
       style={{
         perspective: '1000px', // Adds visual depth for 3D animation
         position: 'absolute',

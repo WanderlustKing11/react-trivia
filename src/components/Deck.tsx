@@ -1,22 +1,21 @@
 import CardFlip from './CardFlip';
 import { cardData } from '../data/cardData';
+import { useState } from 'react';
 
 interface DeckProps {
-  isFlipped: boolean;
-  handleFlip: () => void;
+  handleFlip: (id: number) => void;
 }
 
-export const Deck: React.FC<DeckProps> = (isFlipped, handleFlip) => {
+export const Deck: React.FC<DeckProps> = ({ handleFlip }) => {
   return (
     <div className='deck-container'>
       {cardData.map((card) => (
         <CardFlip
-          // className='text-sm font-bold'
           key={card.id}
           question={card.question}
           answer={card.answer}
-          isFlipped={isFlipped}
-          handleFlip={handleFlip}
+          // isFlipped={card.id === activeCardId}
+          handleFlip={() => handleFlip(card.id)}
         />
       ))}
     </div>

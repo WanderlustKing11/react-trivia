@@ -3,9 +3,11 @@ import { Deck } from './components/Deck';
 import { BsArrowLeftSquare, BsArrowRightSquare } from 'react-icons/bs';
 
 function App() {
-  const [isFlipped, setIsFlipped] = useState(false);
-  const handleFlip = () => {
-    setIsFlipped(!isFlipped);
+  const [activeCardId, setActiveCardId] = useState<number | null>(null);
+  const handleFlip = (cardId: number) => {
+    // Toggle flip state based on whether the sme card is clicked again
+    // Error... we need this to be connected to the new button component
+    setActiveCardId((prevId) => (prevId === cardId ? null : cardId));
   };
 
   return (
@@ -29,15 +31,17 @@ function App() {
       {/* DECK CONTAINER */}
       <div className='flex justify-center p-8'>
         <div className='flex w-auto h-auto grid grid-cols-3 gap-11 content-center justify-self-center'>
+          {/* PREV BUTTON */}
           <button className='flex grid justify-center content-center'>
             <BsArrowLeftSquare className='w-10 h-10' />
           </button>
 
           {/* DECK */}
           <div className='w-48 h-72 text-white bg-[#171717] flex grid justify-center content-center rounded-lg rotate-6'>
-            <Deck isFlipped={isFlipped} handleFlip={handleFlip} />
+            <Deck handleFlip={handleFlip} />
           </div>
 
+          {/* NEXT BUTTON */}
           <button className='flex grid justify-center content-center'>
             <BsArrowRightSquare className='w-10 h-10' />
           </button>
@@ -45,9 +49,11 @@ function App() {
       </div>
       <div className='flex w-auto h-auto grid grid-cols-3 gap-11 content-center justify-self-center'>
         <div className='grid'></div>
+
+        {/* REVEAL BUTTON */}
         <button
           className='flex grid justify-center border-solid border-2 rounded-lg'
-          onClick={handleFlip}
+          onClick={() => handleFlip(setActiveCardId)}
         >
           Reveal
         </button>
