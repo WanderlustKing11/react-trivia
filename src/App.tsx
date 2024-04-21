@@ -12,10 +12,9 @@ function App() {
   );
 
   const handleFlip = (cardId: number) => {
-    // Toggle flip state based on whether the sme card is clicked again
-    // Error... we need this to be connected to the new button component
-    setActiveCardId((prevId) => (prevId === cardId ? null : cardId));
+    // Toggle flip state based on whether the same card is clicked again
     setIsFlipped((prev) => !prev);
+    setActiveCardId((prevId) => (prevId === cardId ? null : cardId)); // `prevId` indicates the avlue of `activeCardId` before any updates or changes in state
   };
 
   // const toggleFlip = () => {
@@ -24,22 +23,26 @@ function App() {
 
   const startGame = () => {
     console.log('Starting game with card 0');
-    setActiveCardId(cardData[0].id);
+    // setActiveCardId(cardData[0].id);
     setIsFlipped(true);
   };
 
-  // const handleNext = () => {
-  //   const currentIndex = cardData.findIndex((card) => card.id === activeCardId);
-  //   const nextIndex = (currentIndex + 1) % cardData.length;
-  //   setActiveCardId(cardData[nextIndex].id);
-  // };
+  const handleNext = () => {
+    if (!isFlipped) return; // Only allow navigation if the card is flipped
+    const currentIndex = cardData.findIndex((card) => card.id === activeCardId);
+    const nextIndex = (currentIndex + 1) % cardData.length;
+    setActiveCardId(cardData[nextIndex].id);
+    setIsFlipped(false); // Card does not flip automatically
+  };
 
-  // const handlePrevious = () => {
-  //   const currentIndex = cardData.findIndex((card) => card.id === activeCardId);
-  //   const previousIndex =
-  //     (currentIndex - 1 + cardData.length) % cardData.length;
-  //   setActiveCardId(cardData[previousIndex].id);
-  // };
+  const handlePrevious = () => {
+    if (!isFlipped) return; // Only allow navigation if the card is flipped
+    const currentIndex = cardData.findIndex((card) => card.id === activeCardId);
+    const previousIndex =
+      (currentIndex - 1 + cardData.length) % cardData.length;
+    setActiveCardId(cardData[previousIndex].id);
+    setIsFlipped(false); // Card is set to false when it is the current active card
+  };
 
   return (
     <div className='w-screen h-screen p-10'>
@@ -62,10 +65,13 @@ function App() {
       {/* DECK CONTAINER */}
       <div className='flex justify-center p-8'>
         <div className='flex w-auto h-auto grid grid-cols-3 gap-11 content-center justify-self-center'>
-          {/* PREV BUTTON */}
-          <button className='flex grid justify-center content-center'>
+          {/* PREV/LEFT NAV BUTTON */}
+          <Button
+            className={`flex grid justify-center content-center`}
+            onClick={handlePrevious}
+          >
             <BsArrowLeftSquare className='w-10 h-10' />
-          </button>
+          </Button>
 
           {/* DECK */}
           <div className='w-48 h-72 text-white bg-[#171717] flex grid justify-center content-center rounded-lg rotate-6'>
@@ -76,10 +82,20 @@ function App() {
             />
           </div>
 
-          {/* NEXT BUTTON */}
-          <button className='flex grid justify-center content-center'>
-            <BsArrowRightSquare className='w-10 h-10' />
-          </button>
+          {/* NEXT/RIGHT NAV BUTTON */}
+          <Button
+            className={`flex grid justify-center content-center`}
+            onClick={() => {
+              handleNext();
+              console.log('Clicked NEXT', activeCardId);
+            }}
+          >
+            <BsArrowRightSquare
+              className={`w-10 h-10 ${
+                !isFlipped && 'opacity-50 cursor-not-allowed'
+              }`}
+            />
+          </Button>
         </div>
       </div>
       <div className='flex w-auto h-auto grid grid-cols-3 gap-11 content-center justify-self-center'>
