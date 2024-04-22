@@ -18,22 +18,28 @@ If you're a fan of the game Helldivers 2, test your knowledge and see if you're 
   - Tailwind CSS
   - Framer-Motion
   - (See dependencies in the [package.json file](https://github.com/WanderlustKing11/react-trivia/blob/main/package.json))
-- No current sliders, just 'Next' and 'Prev' buttons that trigger animation to move forward or back on a selected trivia card.
-- One custom button allows the user to reveal the card's answer.
-- If you like, you can keep track of your score whenever your ideologies align with Super-Earth's with another custom Button Component that keeps track of the score count out of how many trivia questions you have answered. This means you are responsible for managing your own score, for now. But Super-Earth's Ministry of Truth will be updating a better tracking system in the future.
-- One final Button Component to Restart the game.
+- useState to keep track of which card is the current active card, which lets us move to prev or next cards.
+- another useState to manage if the card is flipped or not.
+- another useState to keep count of player progress and score.
+- One button component is used to make 'reveal', 'prev', 'next', 'restart', and 'score' buttons.
+- Framer-Motion is used to flip the cards and slide the cards on and off screen. Most of that code was taken from the documentation.
+- On restart, the cards are shuffled, but the player is taken back to the initial 'Start Game' state.
 
-#### Future Implementations
+### Future Implementations
+
+Here are a few things I'm missing:
 
 - Title Page --> Gives better instruction and UX for players to enter the game
 - Styling
 - Images
 - Responsiveness, more Mobile friendly
-- Score tracking system
+- Accessibility
+- Effective score tracking system
 - Possible multiple choice answers
 - Breadcrumbs to keep track of the player's progress
+- Better transitions for hover state for buttons, and other UX features
 
-##### Lessons Learned
+### Lessons Learned
 
 This was a very educational project for me. I tried my best to keep it simple, and fundamentally work efficiently without too many gimics. I also wanted the project to integrate well with 3rd party libraries without becoming too convoluted. Here are some of the lessons I learned along the way, as well as some of the pain points:
 
