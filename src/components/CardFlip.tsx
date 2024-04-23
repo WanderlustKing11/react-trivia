@@ -7,8 +7,10 @@ interface FramerFlipProps {
   question: string;
   answer: string;
   isFlipped: boolean;
-  slideDirection: 'in' | 'out' | 'none';
-  activeCardId: number | null;
+  // slideDirection: 'in' | 'out' | 'none';
+  movedUp: boolean;
+  zIndex: number;
+  // activeCardId: number | null;
 }
 
 // Slides card on/off screen, to/from deck
@@ -22,9 +24,8 @@ const slideVariants: Variants = {
   // none: {
   //   x: 0,
   // },
-  in: { x: 0, y: 0 },
-  out: { x: -300, y: -200 },
-  none: { x: 0 },
+  in: { x: 0, y: 0 }, // starting point
+  out: { x: -900, y: -100 }, // end point off deck
 };
 
 export const CardFlip: React.FC<FramerFlipProps> = ({
@@ -32,13 +33,17 @@ export const CardFlip: React.FC<FramerFlipProps> = ({
   question,
   answer,
   isFlipped,
-  slideDirection,
-  activeCardId,
+  // handleFlip,
+  movedUp,
+  zIndex,
+  // slideDirection,
+  // activeCardId,
 }) => {
-  console.log('CardFlip isFlipped:', isFlipped); // Should log true/false
+  console.log(`Card ${id}, CardFlip ${isFlipped}, movedUp: ${movedUp}`); // Should log true/false
 
-  const zIndex = 50 - id;
-  const isActive = id === activeCardId; // Check if this card is the active card
+  // const isActive = id === activeCardId; // Check if this card is the active card
+
+  const motionProps = movedUp ? { variant: 'out' } : { variant: 'in' };
 
   const cardStyle: MotionStyle = {
     width: '200px',
@@ -80,8 +85,8 @@ export const CardFlip: React.FC<FramerFlipProps> = ({
         zIndex, // Allows cards to stack
       }}
       variants={slideVariants}
-      initial='none'
-      animate={isActive ? slideDirection : 'none'} // Only animate if active
+      initial='in'
+      animate={motionProps.variant} // Only animate if active
       custom={'left'}
     >
       <motion.div

@@ -1,4 +1,4 @@
-interface CardDataProps {
+export interface CardDataProps {
   id: number;
   question: string;
   answer: string;

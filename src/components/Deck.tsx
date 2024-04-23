@@ -1,31 +1,36 @@
 import CardFlip from './CardFlip';
-import { cardData } from '../data/cardData';
+import { cardData, CardDataProps } from '../data/cardData';
 
 interface DeckProps {
   handleFlip: (id: number) => void;
-  activeCardId: number | null;
+  // handleNext: () => void;
+  // activeCardId: number | null;
+  activeIndex: number;
   isFlipped: boolean;
-  slideDirection: 'in' | 'out' | 'none';
+  // slideDirection: 'in' | 'out' | 'none';
 }
 
 export const Deck: React.FC<DeckProps> = ({
   handleFlip,
-  activeCardId,
+  // activeCardId,
+  activeIndex,
   isFlipped,
-  slideDirection,
+  // slideDirection,
 }) => {
   return (
     <div className='deck-container'>
-      {cardData.map((card) => (
+      {cardData.map((card: CardDataProps, index: number) => (
         <CardFlip
           key={card.id}
           id={card.id}
           question={card.question}
           answer={card.answer}
-          isFlipped={card.id === activeCardId && isFlipped}
+          isFlipped={index === activeIndex && isFlipped}
           handleFlip={() => handleFlip(card.id)}
-          slideDirection={slideDirection}
-          activeCardId={activeCardId}
+          movedUp={index < activeIndex}
+          // slideDirection={slideDirection}
+          zIndex={cardData.length - index}
+          // activeCardId={activeCardId}
         />
       ))}
     </div>

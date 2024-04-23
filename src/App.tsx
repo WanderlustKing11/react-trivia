@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Deck } from './components/Deck';
 import Button from './components/Button';
 import { BsArrowLeftSquare, BsArrowRightSquare } from 'react-icons/bs';
@@ -6,58 +6,38 @@ import { cardData } from './data/cardData';
 
 function App() {
   const [isFlipped, setIsFlipped] = useState(false);
-  // Set the initial active card ID to the 'Start Game' card's ID
-  const [activeCardId, setActiveCardId] = useState<number | null>(
-    cardData[0].id
-  );
-  const [slideDirection, setSlideDirection] = useState<'in' | 'out' | 'none'>(
-    'none'
-  );
+  const [activeIndex, setActiveIndex] = useState(0);
 
-  const handleFlip = (cardId: number) => {
+  // Help track the current active index
+  useEffect(() => {
+    console.log('Active Index Updated:', activeIndex);
+  }, [activeIndex]); // will run every time the activeIndex changes
+
+  const handleFlip = () => {
     // Toggle flip state based on whether the same card is clicked again
     setIsFlipped((prev) => !prev);
-    setActiveCardId((prevId) => (prevId === cardId ? null : cardId)); // `prevId` indicates the avlue of `activeCardId` before any updates or changes in state
-    // setActiveCardId(cardId);
   };
 
-  const startGame = () => {
-    console.log('Starting game with card 0');
-    setIsFlipped(true);
-    // setSlideDirection('none');
-  };
+  // const startGame = () => {
+  //   console.log('Starting game with card 0');
+  //   setIsFlipped(true);
+  // };
 
   // Move to next card in Deck
   const handleNext = () => {
-    if (!isFlipped) return; // Only allow navigation if the card is flipped
-    const currentIndex = cardData.findIndex((card) => card.id === activeCardId);
-    const nextIndex = currentIndex + 1;
-    if (nextIndex < cardData.length) {
-      // check if there are more cards, then go to next card on click
-      const previousCardId = activeCardId;
-      setActiveCardId(cardData[nextIndex].id);
-      setIsFlipped(false);
-      setSlideDirection('out');
-    } else {
-      console.log('Reached End of Game!');
-    }
+    if (!isFlipped || activeIndex >= cardData.length - 1) return; // Only allow navigation if the card is flipped and not on last card
+
+    setActiveIndex(activeIndex + 1);
+    setIsFlipped(false);
   };
 
   // Bring back Previous card in Deck
   const handlePrevious = () => {
-    const currentIndex = cardData.findIndex((card) => card.id === activeCardId);
-    const previousIndex = currentIndex - 1;
-    if (previousIndex >= 0) {
-      // Check for previous card, then go to it on click
-      setActiveCardId(cardData[previousIndex].id);
+    if (activeIndex > 0) {
+      setActiveIndex(activeIndex - 1);
       setIsFlipped(false);
-      setSlideDirection('in');
-    } else {
-      console.log('Start of Game');
     }
   };
-
-  const currentIndex = cardData.findIndex((card) => card.id === activeCardId);
 
   return (
     <div className='w-screen h-screen p-10'>
@@ -83,9 +63,12 @@ function App() {
           {/* PREV/LEFT NAV BUTTON */}
           <Button
             className={`flex grid justify-center content-center ${
-              currentIndex === 0 && 'opacity-50 cursor-not-allowed'
+              activeIndex === 0 && 'opacity-50 cursor-not-allowed'
             }`}
-            onClick={handlePrevious}
+            onClick={() => {
+              handlePrevious();
+              console.log('Clicked PREV');
+            }}
           >
             <BsArrowLeftSquare className='w-10 h-10' />
           </Button>
@@ -94,18 +77,24 @@ function App() {
           <div className='w-48 h-72 text-white bg-[#171717] flex grid justify-center content-center rounded-lg rotate-6'>
             <Deck
               handleFlip={handleFlip}
-              activeCardId={activeCardId}
               isFlipped={isFlipped}
-              slideDirection={slideDirection}
+              activeIndex={activeIndex}
+              // activeCardId={activeCardId}
             />
           </div>
 
           {/* NEXT/RIGHT NAV BUTTON */}
           <Button
             className={`flex grid justify-center content-center ${
-              !isFlipped && 'opacity-50 cursor-not-allowed'
+              // !isFlipped && 'opacity-50 cursor-not-allowed'
+              !isFlipped || activeIndex === cardData.length - 1
+                ? 'opacity-50 cursor-not-allowed'
+                : ''
             }`}
-            onClick={handleNext}
+            onClick={() => {
+              handleNext();
+              console.log('Clicked NEXT');
+            }}
           >
             <BsArrowRightSquare className='w-10 h-10' />
           </Button>
@@ -118,12 +107,8 @@ function App() {
         <Button
           className='flex grid justify-center border-solid border-2 rounded-lg'
           onClick={() => {
-            console.log('Clicked Reveal button!', activeCardId);
-            if (isFlipped) {
-              setIsFlipped(false); // If already flipped, unflip
-            } else {
-              startGame(); // Otherwise, start the game by flipping the 'Start Game' card
-            }
+            console.log('Clicked REVEAL button');
+            handleFlip();
           }}
         >
           Reveal
