@@ -5,12 +5,14 @@ interface DeckProps {
   handleFlip: (id: number) => void;
   activeCardId: number | null;
   isFlipped: boolean;
+  slideDirection: 'in' | 'out' | 'none';
 }
 
 export const Deck: React.FC<DeckProps> = ({
   handleFlip,
   activeCardId,
   isFlipped,
+  slideDirection,
 }) => {
   return (
     <div className='deck-container'>
@@ -22,6 +24,8 @@ export const Deck: React.FC<DeckProps> = ({
           answer={card.answer}
           isFlipped={card.id === activeCardId && isFlipped}
           handleFlip={() => handleFlip(card.id)}
+          slideDirection={slideDirection}
+          activeCardId={activeCardId}
         />
       ))}
     </div>
