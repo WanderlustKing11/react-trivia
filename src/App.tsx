@@ -6,19 +6,32 @@ import {
   BsArrowRightSquare,
   BsHandThumbsUp,
 } from 'react-icons/bs';
-import { cardData } from './data/cardData';
+import { cardData as originalCardData } from './data/cardData';
 
 function App() {
   const [isFlipped, setIsFlipped] = useState(false);
   const [activeIndex, setActiveIndex] = useState(0);
   const [scoreCount, setScoreCount] = useState(0);
   const [scoreUpdated, setScoreUpdated] = useState(false);
+  const [cardData, setCardData] = useState([...originalCardData]);
 
   // Help track the current active index
+  // useEffect(() => {
+  //   console.log('Active Index Updated:', activeIndex);
+  //   // setCanIncreaseScore(true);
+  // }, [activeIndex]); // will run every time the activeIndex changes
+
   useEffect(() => {
-    console.log('Active Index Updated:', activeIndex);
-    // setCanIncreaseScore(true);
-  }, [activeIndex]); // will run every time the activeIndex changes
+    shuffleCards();
+  }, []);
+
+  const shuffleCards = () => {
+    const shuffled = originalCardData.slice(1).sort(() => Math.random() - 0.5); //  Shuffle all but the first card
+    setCardData([originalCardData[0], ...shuffled]); // Keep first card at the top
+    setActiveIndex(0); // Reset the active index
+    setIsFlipped(false);
+    setScoreCount(0);
+  };
 
   const handleFlip = () => {
     // Toggle flip state based on whether the same card is clicked again
@@ -58,7 +71,9 @@ function App() {
     <div className='w-screen h-screen p-10'>
       <div className='flex justify-end'>
         {/* RESTART BUTTON */}
-        <button className='bg-black rounded-full p-4'>Restart</button>
+        <button className='bg-black rounded-full p-4' onClick={shuffleCards}>
+          Restart
+        </button>
       </div>
 
       {/* <div className='flex justify-center'></div> */}
@@ -94,6 +109,7 @@ function App() {
               handleFlip={handleFlip}
               isFlipped={isFlipped}
               activeIndex={activeIndex}
+              cardData={cardData}
               // activeCardId={activeCardId}
             />
           </div>

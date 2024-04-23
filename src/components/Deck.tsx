@@ -7,6 +7,7 @@ interface DeckProps {
   // activeCardId: number | null;
   activeIndex: number;
   isFlipped: boolean;
+  cardData: CardDataProps[];
   // slideDirection: 'in' | 'out' | 'none';
 }
 
@@ -15,6 +16,7 @@ export const Deck: React.FC<DeckProps> = ({
   // activeCardId,
   activeIndex,
   isFlipped,
+  cardData,
   // slideDirection,
 }) => {
   return (
