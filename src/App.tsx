@@ -1,21 +1,29 @@
 import { useEffect, useState } from 'react';
 import { Deck } from './components/Deck';
 import Button from './components/Button';
-import { BsArrowLeftSquare, BsArrowRightSquare } from 'react-icons/bs';
+import {
+  BsArrowLeftSquare,
+  BsArrowRightSquare,
+  BsHandThumbsUp,
+} from 'react-icons/bs';
 import { cardData } from './data/cardData';
 
 function App() {
   const [isFlipped, setIsFlipped] = useState(false);
   const [activeIndex, setActiveIndex] = useState(0);
+  const [scoreCount, setScoreCount] = useState(0);
+  const [scoreUpdated, setScoreUpdated] = useState(false);
 
   // Help track the current active index
   useEffect(() => {
     console.log('Active Index Updated:', activeIndex);
+    // setCanIncreaseScore(true);
   }, [activeIndex]); // will run every time the activeIndex changes
 
   const handleFlip = () => {
     // Toggle flip state based on whether the same card is clicked again
     setIsFlipped((prev) => !prev);
+    setScoreUpdated(false); //  Allow score increase when flipped
   };
 
   // const startGame = () => {
@@ -36,6 +44,13 @@ function App() {
     if (activeIndex > 0) {
       setActiveIndex(activeIndex - 1);
       setIsFlipped(false);
+    }
+  };
+
+  const increaseScore = () => {
+    if (scoreCount < activeIndex && !scoreUpdated) {
+      setScoreCount(scoreCount + 1);
+      setScoreUpdated(true);
     }
   };
 
@@ -119,8 +134,11 @@ function App() {
       {/* SCORE */}
       <div className='w-1/6 h-1/6 border-solid border-2'>
         <div className='flex justify-center py-8 text-lg font-bold'>
-          Score: 0 / 0
+          Score: {scoreCount} / {activeIndex}
         </div>
+        <Button className='ml-[40%]' onClick={increaseScore}>
+          <BsHandThumbsUp />
+        </Button>
       </div>
     </div>
   );
