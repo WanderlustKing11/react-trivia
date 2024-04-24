@@ -129,9 +129,9 @@ function App() {
           </Button>
         </div>
       </div>
-      <div className='flex w-auto h-auto grid grid-cols-3 gap-11 content-center justify-self-center'>
+      <div className='flex w-auto h-auto grid grid-cols-5 gap-11 content-center justify-center'>
         <div className='grid'></div>
-
+        <div className='grid'></div>
         {/* REVEAL BUTTON */}
         <Button
           className='flex grid justify-center border-solid border-2 rounded-lg transition hover:bg-[#2b2b2b] active:translate-y-1 ease-out duration-300'
@@ -143,10 +143,11 @@ function App() {
           Reveal
         </Button>
         <div className='grid'></div>
+        <div className='grid'></div>
       </div>
 
       {/* SCORE */}
-      <div className='w-1/6 h-1/6 border-solid border-2 rounded-md'>
+      <div className='w-1/6 h-1/6 max-w-40 border-solid border-2 rounded-md'>
         <div className='flex justify-center py-8 text-lg font-bold'>
           Score: {scoreCount} / {activeIndex}
         </div>
