@@ -16,10 +16,10 @@ function App() {
   const [cardData, setCardData] = useState([...originalCardData]);
 
   // Help track the current active index
-  // useEffect(() => {
-  //   console.log('Active Index Updated:', activeIndex);
-  //   // setCanIncreaseScore(true);
-  // }, [activeIndex]); // will run every time the activeIndex changes
+  useEffect(() => {
+    console.log('Active Index Updated:', activeIndex);
+    // setCanIncreaseScore(true);
+  }, [activeIndex]); // will run every time the activeIndex changes
 
   useEffect(() => {
     shuffleCards();
@@ -38,11 +38,6 @@ function App() {
     setIsFlipped((prev) => !prev);
     setScoreUpdated(false); //  Allow score increase when flipped
   };
-
-  // const startGame = () => {
-  //   console.log('Starting game with card 0');
-  //   setIsFlipped(true);
-  // };
 
   // Move to next card in Deck
   const handleNext = () => {
@@ -71,7 +66,10 @@ function App() {
     <div className='w-screen h-screen p-10'>
       <div className='flex justify-end'>
         {/* RESTART BUTTON */}
-        <button className='bg-black rounded-full p-4' onClick={shuffleCards}>
+        <button
+          className='bg-black rounded-full p-4 transition text-[#c9c9c9] hover:text-[#66d98a] hover:-translate-y-1 ease-in duration-200'
+          onClick={shuffleCards}
+        >
           Restart
         </button>
       </div>
@@ -79,8 +77,8 @@ function App() {
       {/* <div className='flex justify-center'></div> */}
 
       {/* PAGE TITLE */}
-      <h1 className='text-4xl font-bold my-11 flex justify-center'>
-        HellDivers 2 Trivia
+      <h1 className='text-5xl font-bold my-11 flex justify-center'>
+        HELLDIVERS <span className='mx-2'>II</span> Trivia
       </h1>
       <p className='max-w-96 mx-auto'>
         Say hello to DEMOCRACY, and help spread FREEDOM across the galaxy by
@@ -100,7 +98,7 @@ function App() {
               console.log('Clicked PREV');
             }}
           >
-            <BsArrowLeftSquare className='w-10 h-10' />
+            <BsArrowLeftSquare className='w-10 h-10 fill-[#c9c9c9] hover:fill-white' />
           </Button>
 
           {/* DECK */}
@@ -127,7 +125,7 @@ function App() {
               console.log('Clicked NEXT');
             }}
           >
-            <BsArrowRightSquare className='w-10 h-10' />
+            <BsArrowRightSquare className='w-10 h-10 fill-[#c9c9c9] hover:fill-white' />
           </Button>
         </div>
       </div>
@@ -136,7 +134,7 @@ function App() {
 
         {/* REVEAL BUTTON */}
         <Button
-          className='flex grid justify-center border-solid border-2 rounded-lg'
+          className='flex grid justify-center border-solid border-2 rounded-lg transition hover:bg-[#2b2b2b] active:translate-y-1 ease-out duration-300'
           onClick={() => {
             console.log('Clicked REVEAL button');
             handleFlip();
@@ -148,12 +146,12 @@ function App() {
       </div>
 
       {/* SCORE */}
-      <div className='w-1/6 h-1/6 border-solid border-2'>
+      <div className='w-1/6 h-1/6 border-solid border-2 rounded-md'>
         <div className='flex justify-center py-8 text-lg font-bold'>
           Score: {scoreCount} / {activeIndex}
         </div>
-        <Button className='ml-[40%]' onClick={increaseScore}>
-          <BsHandThumbsUp />
+        <Button className='ml-[38%]' onClick={increaseScore}>
+          <BsHandThumbsUp className='w-7 h-7 transition fill-[#c9c9c9] hover:fill-white hover:-translate-y-1 ease-in duration-200' />
         </Button>
       </div>
     </div>

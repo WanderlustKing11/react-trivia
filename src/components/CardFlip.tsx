@@ -7,39 +7,24 @@ interface FramerFlipProps {
   question: string;
   answer: string;
   isFlipped: boolean;
-  // slideDirection: 'in' | 'out' | 'none';
   movedUp: boolean;
   zIndex: number;
-  // activeCardId: number | null;
 }
 
 // Slides card on/off screen, to/from deck
 const slideVariants: Variants = {
-  // in: (direction: 'left' | 'right') => ({
-  //   x: direction === 'left' ? [-400, 0] : [400, 0], // Starting point
-  // }),
-  // out: (direction: 'left' | 'right') => ({
-  //   x: direction === 'left' ? [0, -400] : [0, 400], // Ending point
-  // }),
-  // none: {
-  //   x: 0,
-  // },
   in: { x: 0, y: 0 }, // starting point
   out: { x: -900, y: -100 }, // end point off deck
 };
 
 export const CardFlip: React.FC<FramerFlipProps> = ({
-  id,
   question,
   answer,
   isFlipped,
-  // handleFlip,
   movedUp,
   zIndex,
-  // slideDirection,
-  // activeCardId,
 }) => {
-  console.log(`Card ${id}, CardFlip ${isFlipped}, movedUp: ${movedUp}`); // Should log true/false
+  // console.log(`Card ${id}, CardFlip ${isFlipped}, movedUp: ${movedUp}`);
 
   // const isActive = id === activeCardId; // Check if this card is the active card
 
@@ -54,7 +39,6 @@ export const CardFlip: React.FC<FramerFlipProps> = ({
     rotate: '-6deg',
     padding: '15px',
     textAlign: 'center',
-    color: 'white',
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
@@ -64,12 +48,13 @@ export const CardFlip: React.FC<FramerFlipProps> = ({
 
   const frontStyle: MotionStyle = {
     ...cardStyle,
+    color: '#f7ff7e',
     backgroundColor: 'black',
   };
 
   const backStyle: MotionStyle = {
     ...cardStyle,
-    backgroundColor: 'red',
+    backgroundColor: '#a81717',
     rotateY: 180,
     position: 'absolute', // Absolute position to align with the front face
     top: 0,
@@ -87,6 +72,7 @@ export const CardFlip: React.FC<FramerFlipProps> = ({
       variants={slideVariants}
       initial='in'
       animate={motionProps.variant} // Only animate if active
+      transition={{ duration: 0.6 }}
       custom={'left'}
     >
       <motion.div

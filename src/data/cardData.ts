@@ -23,7 +23,7 @@ export const cardData: CardDataProps[] = [
     },
   {
     id: 3,
-    question: "What is Super-Earth's most popular beverage?",
+    question: "What is Super Earth's most popular beverage?",
     answer: "Liber-Tea",
     },
   {
@@ -44,7 +44,7 @@ export const cardData: CardDataProps[] = [
   {
     id: 7,
     question: "What are the Helldivers?",
-    answer: "Super-Earth's elite peace keeping force that spread managed Democracy throughout the galaxy.",
+    answer: "Super Earth's elite peace keeping force that spread managed Democracy throughout the galaxy.",
     },
   {
     id: 8,
@@ -63,12 +63,12 @@ export const cardData: CardDataProps[] = [
     },
   {
     id: 11,
-    question: "According to Super-Earth's guide to extraterrestrial diplomacy, what is the preferred method to resolve conflicts?",
+    question: "According to Super Earth's guide to extraterrestrial diplomacy, what is the preferred method to resolve conflicts?",
     answer: "Immediate and overwhelming democracy delivery via orbital strike!",
     },
   {
     id: 12,
-    question: "What is the official stance of Super-Earth on the resource allocation?",
+    question: "What is the official stance of Super Earth on the resource allocation?",
     answer: "Every resource is a weapon if you're brave enough to use it for freedom!",
     },
   {
@@ -78,7 +78,7 @@ export const cardData: CardDataProps[] = [
     },
   {
     id: 14,
-    question: "What is the primary export of Super-Earth?",
+    question: "What is the primary export of Super Earth?",
     answer: "Freedom! Packaged neatly in missiles, of course.",
     },
   {
@@ -103,12 +103,12 @@ export const cardData: CardDataProps[] = [
     },
   {
     id: 19,
-    question: "What is the official Super-Earth slogan for training exercises involving live ammunition?",
+    question: "What is the official Super Earth slogan for training exercises involving live ammunition?",
     answer: "If it doesn't kill you, it makes you stronger—and if it does, then the Helldiver forces will be cleansed of your weakness!",
     },
   {
     id: 20,
     question: "What are some of the benefits of becoming a Helldiver?",
-    answer: "Seeing exotic new lifeforms, witnessing beautiful off-world sceneries, a generous healthcare package, and maintaining prosperity for the citizens of Super-Earth.",
+    answer: "Seeing exotic new lifeforms, witnessing beautiful off-world sceneries, a generous healthcare package, and maintaining prosperity for the citizens of Super Earth.",
     },
 ]
