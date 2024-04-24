@@ -1,7 +1,7 @@
 import React from 'react';
 import { motion, MotionStyle, Variants } from 'framer-motion';
 
-interface FramerFlipProps {
+interface CardProps {
   handleFlip: (id: number) => void;
   id: number;
   question: string;
@@ -17,7 +17,7 @@ const slideVariants: Variants = {
   out: { x: -900, y: -100 }, // end point off deck
 };
 
-export const CardFlip: React.FC<FramerFlipProps> = ({
+export const CardFlip: React.FC<CardProps> = ({
   question,
   answer,
   isFlipped,

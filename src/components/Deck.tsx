@@ -1,4 +1,4 @@
-import CardFlip from './CardFlip';
+import Card from './Card';
 import { CardDataProps } from '../data/cardData';
 
 interface DeckProps {
@@ -17,7 +17,7 @@ export const Deck: React.FC<DeckProps> = ({
   return (
     <div className='deck-container'>
       {cardData.map((card: CardDataProps, index: number) => (
-        <CardFlip
+        <Card
           key={card.id}
           id={card.id}
           question={card.question}
