@@ -14,6 +14,7 @@ function App() {
   const [scoreCount, setScoreCount] = useState(0);
   const [scoreUpdated, setScoreUpdated] = useState(false);
   const [cardData, setCardData] = useState([...originalCardData]);
+  const [gameOver, setGameOver] = useState(false);
 
   // Help track the current active index
   useEffect(() => {
@@ -22,15 +23,16 @@ function App() {
   }, [activeIndex]); // will run every time the activeIndex changes
 
   useEffect(() => {
-    shuffleCards();
+    restartGame();
   }, []);
 
-  const shuffleCards = () => {
+  const restartGame = () => {
     const shuffled = originalCardData.slice(1).sort(() => Math.random() - 0.5); //  Shuffle all but the first card
     setCardData([originalCardData[0], ...shuffled]); // Keep first card at the top
     setActiveIndex(0); // Reset the active index
     setIsFlipped(false);
     setScoreCount(0);
+    setGameOver(false);
   };
 
   const handleFlip = () => {
@@ -62,13 +64,25 @@ function App() {
     }
   };
 
+  useEffect(() => {
+    if (activeIndex === cardData.length - 1 && isFlipped) {
+      gameOverMessage;
+      setGameOver(true);
+    }
+  }, [activeIndex, isFlipped]);
+
+  const gameOverMessage =
+    '*Alert: This assessment has concluded. We have recorded suspicious activities and you have consequently been flagged for further review. You are hereby directed to await instructions from the Ministry of Re-Education. Compliance is mandatory. Please stand by.';
+
+  const nextGame = '... click Restart';
+
   return (
     <div className='w-screen h-screen p-10'>
       <div className='flex justify-end'>
         {/* RESTART BUTTON */}
         <button
           className='bg-black rounded-full p-4 transition text-[#c9c9c9] hover:text-[#66d98a] hover:-translate-y-1 ease-in duration-200'
-          onClick={shuffleCards}
+          onClick={restartGame}
         >
           Restart
         </button>
@@ -134,7 +148,7 @@ function App() {
         <div className='grid'></div>
         {/* REVEAL BUTTON */}
         <Button
-          className='flex grid justify-center border-solid border-2 rounded-lg transition hover:bg-[#2b2b2b] active:translate-y-1 ease-out duration-300'
+          className='flex grid justify-center border-solid border-2 rounded-lg transition hover:bg-[#283348] active:translate-y-1 ease-out duration-300'
           onClick={() => {
             console.log('Clicked REVEAL button');
             handleFlip();
@@ -152,8 +166,16 @@ function App() {
           Score: {scoreCount} / {activeIndex}
         </div>
         <Button className='ml-[38%]' onClick={increaseScore}>
-          <BsHandThumbsUp className='w-7 h-7 transition fill-[#c9c9c9] hover:fill-white hover:-translate-y-1 ease-in duration-200' />
+          <BsHandThumbsUp className='w-7 h-7 transition fill-[#7b7b7b] hover:fill-[#e5812b] hover:-translate-y-1 ease-in duration-200' />
         </Button>
+      </div>
+      <div>
+        {gameOver && (
+          <h3 className='max-w-4xl pl-80 pr-20 text-red-400 absolute bottom-28'>
+            {gameOverMessage}
+          </h3>
+        )}
+        {gameOver && <h3 className='pl-80 text-green-300'>{nextGame}</h3>}
       </div>
     </div>
   );
